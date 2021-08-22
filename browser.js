@@ -16,18 +16,23 @@ let form = document.querySelector('form');
 let list = document.querySelector('ul');
 let hna = document.querySelector('.hna')
 let delete_all = document.querySelector('.butt');
-let pattern = /^[a-z]{5,10}$/
-const add_hna = (todo_num) => {
-    hna.innerHTML = `you have ${todo_num} Pending tasks todo`
-}
+let input = document.querySelector('#todo');
+let pattern = /[a-zA-Z0-9]{5,}/d
+// input.addEventListener('keyup',(e) => {
+//    e.preventDefault();
+//    if(pattern.test(form.todo.value)){
+//       console.log("yes")
+//    }
+// })
 //pour faire supprimer tous les todos :
 delete_all.addEventListener('click',(event) => {
    event.preventDefault();
-   let toto = document.querySelectorAll('li');
+      let toto = document.querySelectorAll('li');
    toto.forEach((to) => {
       to.remove()
       //supprimer dans la base de donnée :
-      db.collection("Todos").delete  
+      let id = to.getAttribute('data-id')
+      db.collection("Todos").doc(id).delete()
    })
 })
 //pour faire supprimer un todo :
@@ -48,13 +53,18 @@ const delete_todo = (id) => {
       })
 }
 form.addEventListener('submit',(e) => {
-     e.preventDefault()
-     let obb = {
+       e.preventDefault()
+       if(pattern.test(form.todo.value)) {
+        let obb = {
           todo: form.todo.value,
-     };
-     //return a promise:
-     db.collection("Todos").add(obb).then((res) => console.log("added"),form.reset())
-     .catch((error) => console.log(error,"failed"));
+         };
+          //return a promise:
+         db.collection("Todos").add(obb).then((res) => console.log("added"),form.reset())
+         .catch((error) => console.log(error,"failed"));
+       } else {
+         console.log(" no")
+       }
+   
 })
 //la methode add todo: 
  const add_todo = (todo,id) => {
@@ -62,7 +72,8 @@ form.addEventListener('submit',(e) => {
         <li class="list-group" data-id="${id}">${todo.todo}
         <button type="submit" class="click">
         <i class="fas fa-trash"></i>
-        </button></li>
+        </button> </li>
+        
      `
      list.innerHTML += html
  }
@@ -70,7 +81,10 @@ form.addEventListener('submit',(e) => {
      snap.docChanges().forEach((to,index) => {
           if(to.type==="added"){
             add_todo(to.doc.data(),to.doc.id)
-            add_hna(index+1)
+            console.log(snap.docs)
+            if(!snap.empty) {
+              hna.innerHTML = `you have ${snap.size} Pending tasks todo`
+            }
           } else {
                delete_todo(to.doc.id)
           }
