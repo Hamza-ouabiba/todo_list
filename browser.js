@@ -14,25 +14,83 @@
 const db = firebase.firestore();
 let form = document.querySelector('form');
 let list = document.querySelector('ul');
-let pattern = /^[a-z]{5,10}$/
+let hna = document.querySelector('.hna')
+let delete_all = document.querySelector('.butt');
+let input = document.querySelector('#todo');
+let pattern = /[a-zA-Z0-9]{5,}/
+let h = document.querySelector('.text');
+// input.addEventListener('keyup',(e) => {
+//    e.preventDefault();
+//    if(pattern.test(form.todo.value)){
+//       console.log("yes")
+//       h.innerHTML ="ok"
+//    } else {
+//       h.innerHTML = "nop"
+//    }
+// })
+//pour faire supprimer tous les todos :
+delete_all.addEventListener('click',(event) => {
+   event.preventDefault();
+      let toto = document.querySelectorAll('li');
+   toto.forEach((to) => {
+      to.remove()
+      //supprimer dans la base de donnée :
+      let id = to.getAttribute('data-id')
+      db.collection("Todos").doc(id).delete()
+   })
+})
+//pour faire supprimer un todo :
+list.addEventListener('click',function(e) {
+    e.preventDefault()
+    if(e.target.tagName === "BUTTON"){
+        let id = e.target.parentElement.getAttribute("data-id");
+        delete_todo(id);
+        db.collection("Todos").doc(id).delete()
+    }
+})
+const delete_todo = function(id) {
+      const Alltodos = document.querySelectorAll('li');
+      Alltodos.forEach((todo) => {
+        if(todo.getAttribute('data-id') === id) {
+            todo.remove()
+         }
+      })
+}
 form.addEventListener('submit',(e) => {
-     e.preventDefault()
-     let obb = {
+       e.preventDefault()
+       if(pattern.test(form.todo.value)) {
+        let obb = {
           todo: form.todo.value,
-     };
-     //return a promise:
-     db.collection("Todos").add(obb).then((res) => console.log("added"),alert("added"))
-     .catch((error) => console.log(error,"failed"));
+         };
+          //return a promise:
+         db.collection("Todos").add(obb).then((res) => console.log("added"),form.reset())
+         .catch((error) => console.log(error,"failed"));
+       } else {
+         console.log(" no")
+       }
+   
 })
 //la methode add todo: 
  const add_todo = (todo,id) => {
     let html = `
-        <li class="list-group" data-id="${id}">${todo.todo}<span><i class="fas fa-trash"></i></span></li>
+        <li class="list-group" data-id="${id}">${todo.todo}
+        <button type="submit" class="click">
+        <i class="fas fa-trash"></i>
+        </button> </li>
+        
      `
      list.innerHTML += html
  }
  db.collection("Todos").onSnapshot((snap) => {
-     snap.docChanges().forEach((to) => {
-          add_todo(to.doc.data(),to.doc.id)
+     snap.docChanges().forEach((to,index) => {
+          if(to.type==="added"){
+            add_todo(to.doc.data(),to.doc.id)
+            console.log(snap.docs)
+            if(!snap.empty) {
+              hna.innerHTML = `you have ${snap.size} Pending tasks todo`
+            }
+          } else {
+               delete_todo(to.doc.id)
+          }
      })
  })

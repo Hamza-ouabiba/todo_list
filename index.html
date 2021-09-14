@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <title>Project Js</title>
     <style>
         
@@ -15,13 +16,15 @@
          <h1>Todo-list</h1>
              <form>
                  <div class="input-field">
-                  <input type="text"  placeholder="Add A new-todo" id="todo">
+                  <input required type="text"  placeholder="Add A new-todo" id="todo">
                   <button type="submit"><i class="fa fa-plus" aria-hidden="true"></i></button>
              </div>
                  <ul class="list-group">
-                    
                  </ul>
                  </form>
+                 <div class="footer">
+                    <span class="hna"></span><button class="butt">Delete All</button>
+                 </div>
     </div>
      <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
