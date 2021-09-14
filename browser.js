@@ -17,15 +17,22 @@ let list = document.querySelector('ul');
 let hna = document.querySelector('.hna')
 let delete_all = document.querySelector('.butt');
 let input = document.querySelector('#todo');
+<<<<<<< HEAD
 let pattern = /[a-zA-Z0-9]{5,}/
 let h = document.querySelector('.text');
+=======
+let pattern = /[a-zA-Z0-9]{5,}/d
+>>>>>>> 6481e667beb4b53bbbbe0a4c720ee80b860079e4
 // input.addEventListener('keyup',(e) => {
 //    e.preventDefault();
 //    if(pattern.test(form.todo.value)){
 //       console.log("yes")
+<<<<<<< HEAD
 //       h.innerHTML ="ok"
 //    } else {
 //       h.innerHTML = "nop"
+=======
+>>>>>>> 6481e667beb4b53bbbbe0a4c720ee80b860079e4
 //    }
 // })
 //pour faire supprimer tous les todos :
@@ -40,7 +47,11 @@ delete_all.addEventListener('click',(event) => {
    })
 })
 //pour faire supprimer un todo :
+<<<<<<< HEAD
 list.addEventListener('click',function(e) {
+=======
+list.addEventListener('click',(e) => {
+>>>>>>> 6481e667beb4b53bbbbe0a4c720ee80b860079e4
     e.preventDefault()
     if(e.target.tagName === "BUTTON"){
         let id = e.target.parentElement.getAttribute("data-id");
@@ -48,7 +59,11 @@ list.addEventListener('click',function(e) {
         db.collection("Todos").doc(id).delete()
     }
 })
+<<<<<<< HEAD
 const delete_todo = function(id) {
+=======
+const delete_todo = (id) => {
+>>>>>>> 6481e667beb4b53bbbbe0a4c720ee80b860079e4
       const Alltodos = document.querySelectorAll('li');
       Alltodos.forEach((todo) => {
         if(todo.getAttribute('data-id') === id) {
