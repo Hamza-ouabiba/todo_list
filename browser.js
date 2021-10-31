@@ -1,11 +1,11 @@
   // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyAbFNKD787X2d5dkzSGTG_vOEmBihwXaEc",
-    authDomain: "todo-list-af156.firebaseapp.com",
-    projectId: "todo-list-af156",
-    storageBucket: "todo-list-af156.appspot.com",
-    messagingSenderId: "481115152156",
-    appId: "1:481115152156:web:eecf4e46a46f57b1d564d9"
+  const firebaseConfig = {
+    apiKey: "AIzaSyAXTggvA8r9JWMfjBc5Oum7BRmTFVLuJIw",
+    authDomain: "todo-2-e2574.firebaseapp.com",
+    projectId: "todo-2-e2574",
+    storageBucket: "todo-2-e2574.appspot.com",
+    messagingSenderId: "313231024738",
+    appId: "1:313231024738:web:1de616be6ecabe34eee73b"
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
@@ -17,22 +17,15 @@ let list = document.querySelector('ul');
 let hna = document.querySelector('.hna')
 let delete_all = document.querySelector('.butt');
 let input = document.querySelector('#todo');
-<<<<<<< HEAD
 let pattern = /[a-zA-Z0-9]{5,}/
 let h = document.querySelector('.text');
-=======
-let pattern = /[a-zA-Z0-9]{5,}/d
->>>>>>> 6481e667beb4b53bbbbe0a4c720ee80b860079e4
 // input.addEventListener('keyup',(e) => {
 //    e.preventDefault();
 //    if(pattern.test(form.todo.value)){
 //       console.log("yes")
-<<<<<<< HEAD
 //       h.innerHTML ="ok"
 //    } else {
 //       h.innerHTML = "nop"
-=======
->>>>>>> 6481e667beb4b53bbbbe0a4c720ee80b860079e4
 //    }
 // })
 //pour faire supprimer tous les todos :
@@ -47,11 +40,7 @@ delete_all.addEventListener('click',(event) => {
    })
 })
 //pour faire supprimer un todo :
-<<<<<<< HEAD
-list.addEventListener('click',function(e) {
-=======
 list.addEventListener('click',(e) => {
->>>>>>> 6481e667beb4b53bbbbe0a4c720ee80b860079e4
     e.preventDefault()
     if(e.target.tagName === "BUTTON"){
         let id = e.target.parentElement.getAttribute("data-id");
@@ -59,11 +48,7 @@ list.addEventListener('click',(e) => {
         db.collection("Todos").doc(id).delete()
     }
 })
-<<<<<<< HEAD
-const delete_todo = function(id) {
-=======
 const delete_todo = (id) => {
->>>>>>> 6481e667beb4b53bbbbe0a4c720ee80b860079e4
       const Alltodos = document.querySelectorAll('li');
       Alltodos.forEach((todo) => {
         if(todo.getAttribute('data-id') === id) {
@@ -83,7 +68,6 @@ form.addEventListener('submit',(e) => {
        } else {
          console.log(" no")
        }
-   
 })
 //la methode add todo: 
  const add_todo = (todo,id) => {
@@ -103,9 +87,14 @@ form.addEventListener('submit',(e) => {
             console.log(snap.docs)
             if(!snap.empty) {
               hna.innerHTML = `you have ${snap.size} Pending tasks todo`
-            }
+            } 
           } else {
                delete_todo(to.doc.id)
+               snap.size--;
+               hna.innerHTML = `you have ${snap.size} Pending tasks todo`
+               if(snap.size == 0) {
+                  hna.innerHTML = `No data`
+               }
           }
      })
  })
