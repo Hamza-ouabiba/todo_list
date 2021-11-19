@@ -1,4 +1,4 @@
-  // Your web app's Firebase configuration
+  //  web app Firebase configuration
   const firebaseConfig = {
     apiKey: "AIzaSyAXTggvA8r9JWMfjBc5Oum7BRmTFVLuJIw",
     authDomain: "todo-2-e2574.firebaseapp.com",
@@ -9,8 +9,6 @@
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
-  //la creation de la base de donnée : 
-  //pour communiquer avec la base : 
 const db = firebase.firestore();
 let form = document.querySelector('form');
 let list = document.querySelector('ul');
@@ -28,7 +26,7 @@ let h = document.querySelector('.text');
 //       h.innerHTML = "nop"
 //    }
 // })
-//pour faire supprimer tous les todos :
+//To delete all todos  :
 delete_all.addEventListener('click',(event) => {
    event.preventDefault();
       let toto = document.querySelectorAll('li');
@@ -39,7 +37,6 @@ delete_all.addEventListener('click',(event) => {
       db.collection("Todos").doc(id).delete()
    })
 })
-//pour faire supprimer un todo :
 list.addEventListener('click',(e) => {
     e.preventDefault()
     if(e.target.tagName === "BUTTON"){
@@ -69,7 +66,6 @@ form.addEventListener('submit',(e) => {
          console.log(" no")
        }
 })
-//la methode add todo: 
  const add_todo = (todo,id) => {
     let html = `
         <li class="list-group" data-id="${id}">${todo.todo}
