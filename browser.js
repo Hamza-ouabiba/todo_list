@@ -32,7 +32,7 @@ delete_all.addEventListener('click',(event) => {
       let toto = document.querySelectorAll('li');
    toto.forEach((to) => {
       to.remove()
-      //supprimer dans la base de donnée :
+      //delete from db:
       let id = to.getAttribute('data-id')
       db.collection("Todos").doc(id).delete()
    })
